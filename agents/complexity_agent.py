@@ -1,4 +1,4 @@
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage
 import ast
 
@@ -15,13 +15,19 @@ class ComplexityAgent:
             return issues
 
         for node in ast.walk(tree):
+            # Only flag actual For loops, not comprehensions
             if isinstance(node, ast.For):
                 for child in ast.walk(node):
                     if isinstance(child, ast.For) and child is not node:
-                        issues.append({
-                            "type": "COMPLEXITY",
-                            "line": node.lineno,
-                            "message": "Nested loop detected — O(n²) complexity. Consider using a dict lookup."
-                        })
+                        # Skip if inside a comprehension
+                        if not isinstance(child, ast.comprehension):
+                            issues.append({
+                                "type": "COMPLEXITY",
+                                "line": node.lineno,
+                                "message": (
+                                    f"Nested loop at line {node.lineno} — O(n²) complexity. "
+                                    "Consider using a dict or set lookup to reduce to O(n)."
+                                )
+                            })
                         break
         return issues

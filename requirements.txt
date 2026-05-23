@@ -1,4 +1,7 @@
 langchain
+langchain-openai
 openai
 pycodestyle
 pytest
+pytest-cov
+python-dotenv

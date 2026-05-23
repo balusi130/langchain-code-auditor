@@ -1,18 +1,17 @@
 # Changelog
 
-## [1.1.0] - 2026-04-10
-### Added
-- Correlated subquery detection agent
-- `.gitignore` for Python projects
+## [1.1.0]
+- Add config module with dotenv support
+- Add .env.example for easier onboarding
+- Add pytest-cov for coverage reporting
+- Fix: style agent now handles files with Windows line endings correctly
 
-## [1.0.1] - 2026-03-22
-### Fixed
-- Style agent crashing on files with Windows line endings (CRLF)
-- Security agent false positive on commented-out credential lines
+## [1.0.1]
+- Fix: complexity agent was flagging list comprehensions as nested loops incorrectly
+- Improve error message when file path does not exist
 
-## [1.0.0] - 2026-03-01
-### Added
-- Initial release with complexity, security, and style agents
-- CLI entry point with `--file` and `--dir` flags
-- Unit tests for all three agents
-- requirements.txt and README
+## [1.0.0]
+- Initial release
+- Complexity, security, and style agents
+- Single file and directory scanning
+- Rich terminal output
